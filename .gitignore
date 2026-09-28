@@ -24,3 +24,7 @@ build/
 *.swp
 .DS_Store
 Thumbs.db
+
+#Test / generated data
+test/output/
+test/tmp/
