@@ -1,12 +1,23 @@
 import { useState } from 'react'
+import { BrowserRouter, Routes, Route} from 'react-router-dom'
+import MainLayout from './layouts/MainLayout.jsx'
+import Home from './pages/Home.jsx'
+import UploadPage from './pages/UploadPage.jsx'
 
 function App() {
   
   return (
     <>
-      <div className='bg-green-400 color text-white font-bold p-8 m-auto mt-4 w-2xl text-center'>
-        <span>SmartSeed Frontend</span>
-      </div>
+      <BrowserRouter>
+      <Routes>
+
+        <Route element={<MainLayout/>}>
+          <Route path="/" element={<Home/>} />
+          <Route path="/upload" element={<UploadPage/>} />
+        </Route>
+
+      </Routes>
+    </BrowserRouter>
     </>
   )
 }
