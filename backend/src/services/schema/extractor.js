@@ -47,7 +47,7 @@ function extractSchemaData(model) {
    for (const [pathName, schemaType] of Object.entries(schema.paths)) {
 
         // Ignore Mongoose's automatically generated _id field
-        if (pathName === "_id") {
+        if (pathName === "_id" || pathName === "__v") {
             continue;
         }
 
