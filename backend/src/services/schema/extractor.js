@@ -42,7 +42,6 @@ function extractField(pathName, schemaType) {
 function extractSchemaData(model) {
    const schema = model.schema;
    const fields = [];
-   console.log(`Schema : ${JSON.stringify(schema)}`);
 
    for (const [pathName, schemaType] of Object.entries(schema.paths)) {
 
