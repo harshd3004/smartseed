@@ -1,6 +1,7 @@
 const path = require('path');
 const { loadModel } = require('./services/schema/schema-runner');
 const { extractSchemaData } = require('./services/schema/extractor');
+const { buildIR } = require('./services/schema/ir-builder');
 
 const modelPath = path.resolve(
     __dirname,
@@ -17,7 +18,8 @@ try {
     console.log(`Extracted schema data: ${JSON.stringify(schemadata)}`);
 
     // 3. Convert metadata into SmartSeed IR
-    // const ir = buildIR(metadata);
+    const ir = buildIR(schemadata);
+    console.log(`\n\nGenerated IR: ${JSON.stringify(ir)}`);
 
 } catch (error) {
     console.error("SmartSeed pipeline failed:");
