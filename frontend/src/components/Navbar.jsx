@@ -1,9 +1,33 @@
-import React from 'react'
+import { Link } from "react-router-dom";
 
-function Navbar() {
+export default function Navbar({ activePage }) {
+  const navItems = [
+    { name: "Home", path: "/" },
+    { name: "About Us", path: "/AboutUs" },
+    { name: "Process", path: "/Process" },
+  ];
+
   return (
-    <div>home about</div>
-  )
-}
+    <header className="navbar">
+      <div className="brand-badge" aria-label="Icon">
+        ICON
+      </div>
 
-export default Navbar
+      <nav>
+        {navItems.map((item) => (
+          <Link
+            key={item.name}
+            to={item.path}
+            className={
+              activePage === item.name
+                ? "nav-link active"
+                : "nav-link"
+            }
+          >
+            {item.name}
+          </Link>
+        ))}
+      </nav>
+    </header>
+  );
+}
