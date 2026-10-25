@@ -1,5 +1,5 @@
 const express = require("express");
-
+const errorMiddleware = require('./middlewares/errorMiddleware');
 const app = express();
 
 //cors
@@ -16,6 +16,6 @@ app.get("/", (req, res) => {
 app.use("/api/schema", schemaRoutes);
 
 //err handler
-
+app.use(errorMiddleware);
 
 module.exports = app;
