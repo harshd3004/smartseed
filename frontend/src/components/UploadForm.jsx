@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 import ProgressBar from './ProgressBar.jsx';
+import { uploadModels } from '../api/schemaApi.js';
 
 export default function UploadForm({ onUploaded }) {
   const inputRef = useRef(null);
@@ -26,13 +27,12 @@ export default function UploadForm({ onUploaded }) {
     setProgress(0);
     setStatus('Uploading files...');
     try {
-      const result = await uploadFiles(title.trim(), files, (value) => setProgress(value));
+      const result = await uploadModels(files);
       setProgress(100);
       setStatus('Upload completed successfully');
       setTitle('');
       setFiles([]);
       if (inputRef.current) inputRef.current.value = '';
-      onUploaded(result);
     } catch (err) {
       setStatus('Upload failed');
       setError(err.message);

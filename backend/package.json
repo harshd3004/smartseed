@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/harshd3004/smartseed-backend#readme",
   "dependencies": {
+    "cors": "^2.8.6",
     "express": "^5.2.1",
     "mongoose": "^9.9.5",
     "multer": "^2.5.0",
