@@ -1,4 +1,3 @@
-
 {
   "name": "smartseed-backend",
   "version": "1.0.0",
@@ -8,7 +7,7 @@
   "scripts": {
     "dev": "nodemon src/server.js",
     "start": "node src/server.js",
-    "test": "node test/generators/generator-test.js"
+    "test": "node test/sample-models/generators/generator-test.js"
   },
   "repository": {
     "type": "git",

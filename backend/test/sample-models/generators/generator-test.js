@@ -1,5 +1,5 @@
 const assert = require("node:assert/strict");
-const registry = require("../../src/generators");
+const registry = require("../../../src/services/generators");
 
 function runTests() {
     console.log("\n--- SmartSeed Generator Registry Tests ---\n");
@@ -132,7 +132,7 @@ function runTests() {
 
     // 13. Test invalid registration.
     const GeneratorRegistry = require(
-        "../../src/generators/registry/generator-registry"
+        "../../../src/services/generators/registry/generator-registry"
     );
 
     const temporaryRegistry = new GeneratorRegistry();
