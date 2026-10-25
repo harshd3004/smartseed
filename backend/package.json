@@ -1,12 +1,14 @@
+
 {
   "name": "smartseed-backend",
   "version": "1.0.0",
-  "description": "Backend of Project SmartSeed(An AI-based database seeding tool)",
+  "description": "Backend of Project SmartSeed (An AI-based database seeding tool)",
   "main": "src/server.js",
+  "type": "commonjs",
   "scripts": {
     "dev": "nodemon src/server.js",
     "start": "node src/server.js",
-    "test": "node src/index.js"
+    "test": "node test/generators/generator-test.js"
   },
   "repository": {
     "type": "git",
@@ -19,8 +21,11 @@
   },
   "homepage": "https://github.com/harshd3004/smartseed-backend#readme",
   "dependencies": {
+    "@faker-js/faker": "^10.0.0",
     "express": "^5.2.1",
-    "mongoose": "^9.9.5",
+    "mongoose": "^9.9.5"
+  },
+  "devDependencies": {
     "nodemon": "^3.1.14"
   }
 }
