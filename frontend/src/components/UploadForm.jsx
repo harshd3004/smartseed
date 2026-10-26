@@ -4,7 +4,6 @@ import { uploadModels } from '../api/schemaApi.js';
 
 export default function UploadForm({ onUploaded }) {
   const inputRef = useRef(null);
-  const [title, setTitle] = useState('');
   const [files, setFiles] = useState([]);
   const [progress, setProgress] = useState(0);
   const [status, setStatus] = useState('Ready to upload');
@@ -20,7 +19,6 @@ export default function UploadForm({ onUploaded }) {
   };
 
   const submit = async () => {
-    if (!title.trim()) return setError('Please enter a title.');
     if (!files.length) return setError('Please choose at least one file.');
     setBusy(true);
     setError('');
@@ -30,7 +28,6 @@ export default function UploadForm({ onUploaded }) {
       const result = await uploadModels(files);
       setProgress(100);
       setStatus('Upload completed successfully');
-      setTitle('');
       setFiles([]);
       if (inputRef.current) inputRef.current.value = '';
     } catch (err) {
@@ -43,17 +40,7 @@ export default function UploadForm({ onUploaded }) {
 
   return (
     <section className="upload-card">
-      <div className="title-input-wrap">
-        <input
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          placeholder="Title"
-          maxLength={120}
-          disabled={busy}
-        />
-      </div>
 
-      <div className="divider" />
 
       <input ref={inputRef} className="file-input" type="file" multiple onChange={chooseFiles} />
       <button className="upload-button" onClick={() => inputRef.current?.click()} disabled={busy}>
