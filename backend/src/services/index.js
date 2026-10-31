@@ -2,6 +2,7 @@ const path = require('path');
 const { loadModel } = require('./schema/schema-runner');
 const { extractSchemaData } = require('./schema/extractor');
 const { buildIR } = require('./schema/ir-builder');
+const { analyzeIR } = require('./analyzer/rule-analyzer');
 
 const modelPath = path.resolve(
     __dirname,
@@ -21,6 +22,10 @@ try {
     const ir = buildIR(schemadata);
     console.log(`\n\nGenerated IR: ${JSON.stringify(ir)}`);
 
+    // 4. Analyze the generated IR
+    const analysis = analyzeIR(ir);
+    console.log(`\n\nAnalysis: ${JSON.stringify(analysis)}`);
+    
 } catch (error) {
     console.error("SmartSeed pipeline failed:");
     console.error(error.message);
