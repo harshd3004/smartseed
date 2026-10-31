@@ -1,11 +1,11 @@
 const path = require('path');
-const { loadModel } = require('./services/schema/schema-runner');
-const { extractSchemaData } = require('./services/schema/extractor');
-const { buildIR } = require('./services/schema/ir-builder');
+const { loadModel } = require('./schema/schema-runner');
+const { extractSchemaData } = require('./schema/extractor');
+const { buildIR } = require('./schema/ir-builder');
 
 const modelPath = path.resolve(
     __dirname,
-    '../test/sample-models/',
+    '../../test/sample-models/',
     'user.js'
 )
 
