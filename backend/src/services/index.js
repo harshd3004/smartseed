@@ -2,11 +2,15 @@ const path = require('path');
 const { loadModel } = require('./schema/schema-runner');
 const { extractSchemaData } = require('./schema/extractor');
 const { buildIR } = require('./schema/ir-builder');
+const { analyzeIR } = require('./analyzer/rule-analyzer');
+const { analyzeWithAI } = require('./analyzer/ai-analyzer');
+
+require('dotenv').config({ path: path.resolve(__dirname, '../../.env') });
 
 const modelPath = path.resolve(
     __dirname,
     '../../test/sample-models/',
-    'user.js'
+    'Content.js'
 )
 
 try {
@@ -21,6 +25,14 @@ try {
     const ir = buildIR(schemadata);
     console.log(`\n\nGenerated IR: ${JSON.stringify(ir)}`);
 
+    // 4. Analyze the generated IR
+    const RuleAnalysis = analyzeIR(ir);
+    console.log(`\n\nRule Analysis: ${JSON.stringify(RuleAnalysis)}`);
+
+    analyzeWithAI(ir)
+        .then((AIAnalysis) => {
+            console.log(`\n\nAI Analysis: ${JSON.stringify(AIAnalysis)}`);
+        });
 } catch (error) {
     console.error("SmartSeed pipeline failed:");
     console.error(error.message);
