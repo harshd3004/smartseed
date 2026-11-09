@@ -530,6 +530,7 @@ function analyzeIR(ir) {
                     model: model.name,
                     collection: model.collection,
                     field: analyzedField.name,
+                    type: analyzedField.sourceType,
                     reason: analyzedField.reason
                 });
             }
