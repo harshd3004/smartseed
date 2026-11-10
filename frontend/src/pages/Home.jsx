@@ -1,7 +1,7 @@
 import { Sparkles, Database, Code2 } from "lucide-react";
 import UploadForm from "../components/UploadForm.jsx";
 
-export default function Home({ uploads, onUploaded, onDeleted }) {
+export default function Home() {
   return (
     <main className="min-h-[calc(100vh-64px)] bg-[#F8FAF9] px-4 py-12 sm:px-6 lg:py-16">
 
@@ -31,7 +31,7 @@ export default function Home({ uploads, onUploaded, onDeleted }) {
 
         {/* Upload Section */}
         <section className="w-full max-w-2xl">
-          <UploadForm onUploaded={onUploaded} />
+          <UploadForm />
         </section>
 
         {/* Feature Highlights */}

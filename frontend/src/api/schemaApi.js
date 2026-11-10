@@ -15,3 +15,8 @@ export const uploadModels = async (files) => {
 
     return response.data
 }
+
+export const extractSchema = async (sessionId) => {
+    const response = await api.post(`/schema/${sessionId}/extract`);
+    return response.data;
+}
