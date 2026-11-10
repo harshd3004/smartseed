@@ -1,30 +1,4 @@
 
-
-export const sampleIR = {
-  models: [
-    {
-      name: "Content",
-      collection: "contents",
-      fields: [
-        { name: "headline", type: "String", required: true },
-        { name: "tagline", type: "String" },
-        { name: "manufacturer", type: "String" },
-        { name: "socialHandle", type: "String" },
-        { name: "avatarUrl", type: "String" },
-        { name: "region", type: "String" },
-        { name: "postal", type: "String" },
-        { name: "visitCount", type: "Number" },
-        { name: "averageScore", type: "Number" },
-        { name: "publishedOn", type: "Date" },
-        { name: "lastSeenAt", type: "Date" },
-        { name: "internalNotes", type: "String" },
-        { name: "membershipLevel", type: "String" },
-        { name: "isVerified", type: "Boolean" },
-      ],
-    },
-  ],
-};
-
 export const sampleGenerationPlan = {
   models: [
     {

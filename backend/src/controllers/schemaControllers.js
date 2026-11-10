@@ -83,8 +83,49 @@ const extractModels = async (req, res, next) => {
   }
 }
 
+const getIR = async (req, res, next) => {
+  try {
+    const sessionId = req.params.sessionId;
+
+    // Validate sessionId
+    if (!sessionId) {
+      res.status(400);
+      throw new Error("Session ID is required to fetch the IR.");
+    }
+
+    const sessionFolderPath = path.join(__dirname, "../..", "temp", sessionId);
+
+    // check if seesion folder exists
+    try {
+      await fs.access(sessionFolderPath);
+    } catch (err) {
+      res.status(404);
+      throw new Error("Invalid session ID. Please upload your models first.");
+    }
+
+    const irFilePath = path.join(sessionFolderPath, 'ir.json');
+
+    // check if IR file exists
+    try {
+      await fs.access(irFilePath);
+    } catch (err) {
+      res.status(404);
+      throw new Error("IR file not found for the given session.");
+    }
+
+    const irData = await fs.readFile(irFilePath, 'utf8');
+
+    return res.status(200).json({
+      success: true,
+      ir: JSON.parse(irData)
+    });
+  } catch (error) {
+    next(error);
+  }
+}
 
 module.exports = {
     uploadModels,
-    extractModels
+    extractModels,
+    getIR
 };

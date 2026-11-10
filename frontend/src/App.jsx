@@ -6,7 +6,7 @@ import About from './pages/About.jsx'
 import Process from './pages/Process.jsx'
 import SchemaReview  from './components/schema/SchemaReview.jsx'
 import GenerationPlan from './components/plan/GenerationPlan.jsx'
-import { sampleIR, sampleGenerationPlan } from "./sampleData";
+import { sampleGenerationPlan } from "./sampleData";
 
 function App() {
   
@@ -19,7 +19,7 @@ function App() {
           <Route path="/" element={<Home/>} />
           <Route path="/AboutUs" element={<About/>} />
           <Route path="/Process" element={<Process/>} />
-          <Route path="/schema" element={<SchemaReview ir={sampleIR}/>} />
+          <Route path="/schema" element={<SchemaReview />} />
           <Route path="/plan" element={<GenerationPlan  plan={sampleGenerationPlan}/>} />
         </Route>
 

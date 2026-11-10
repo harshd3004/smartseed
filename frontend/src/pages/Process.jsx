@@ -88,7 +88,7 @@ export default function Process() {
         <section className="relative mx-auto max-w-3xl">
 
           {/* Vertical Connector */}
-          <div className="absolute bottom-20 left-[27px] top-10 hidden w-px bg-emerald-200 sm:block" />
+          <div className="absolute bottom-20 left-6.75 top-10 hidden w-px bg-emerald-200 sm:block" />
 
           <div className="space-y-6">
 

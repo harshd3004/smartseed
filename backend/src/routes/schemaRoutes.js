@@ -7,4 +7,6 @@ router.post("/upload", initializeSession, uploadMiddleware, schemaControllers.up
 
 router.post("/:sessionId/extract", schemaControllers.extractModels)
 
+router.get("/:sessionId",schemaControllers.getIR)
+
 module.exports = router;

@@ -20,3 +20,8 @@ export const extractSchema = async (sessionId) => {
     const response = await api.post(`/schema/${sessionId}/extract`);
     return response.data;
 }
+
+export const getExtractedSchema = async (sessionId) => {
+    const response = await api.get(`/schema/${sessionId}`);
+    return response.data;   
+}

@@ -1,9 +1,25 @@
 import { ArrowRight, CheckCircle2, Database, FileCode2 } from "lucide-react";
 import ModelSchemaCard from "./ModelSchemaCard";
+import { useState, useEffect } from "react";
+import { useSession } from "../../context/SessionContext";
+import { getExtractedSchema } from "../../api/schemaApi";
 
-export default function SchemaReview({ ir }) {
-  const models = ir?.models || [];
-  const totalFields = models.reduce((sum, model) => sum + (model.fields?.length || 0), 0);
+export default function SchemaReview() {
+  const [models, setModels] = useState([])
+  const [totalFields, setTotalFields] = useState(0);
+  const { sessionId } = useSession();
+
+  useEffect(()=> {
+    async function fetchIR(){
+      if(!sessionId)
+        return;
+      const res = await getExtractedSchema(sessionId);
+      console.log("Res:",res)
+      setModels(res.ir.models);
+      setTotalFields(models.reduce((sum, model) => sum + (model.fields?.length || 0), 0))
+    }
+    fetchIR()
+  },[]);
 
   return (
     <main className="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
