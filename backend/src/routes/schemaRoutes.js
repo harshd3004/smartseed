@@ -5,4 +5,6 @@ const initializeSession = require('../middlewares/initializeUploadSession')
 
 router.post("/upload", initializeSession, uploadMiddleware, schemaControllers.uploadModels)
 
+router.post("/:sessionId/extract", schemaControllers.extractModels)
+
 module.exports = router;
