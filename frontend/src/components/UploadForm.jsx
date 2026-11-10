@@ -9,15 +9,12 @@ import {
   AlertCircle,
 } from "lucide-react";
 
-import ProgressBar from "./ProgressBar.jsx";
 import { uploadModels } from "../api/schemaApi.js";
 
 export default function UploadForm({ onUploaded }) {
   const inputRef = useRef(null);
 
   const [files, setFiles] = useState([]);
-  const [progress, setProgress] = useState(0);
-  const [status, setStatus] = useState("Ready to upload");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
 
@@ -26,12 +23,6 @@ export default function UploadForm({ onUploaded }) {
 
     setFiles(selected);
     setError("");
-    setProgress(0);
-    setStatus(
-      selected.length
-        ? `${selected.length} file(s) selected`
-        : "Ready to upload"
-    );
   };
 
   const submit = async () => {
@@ -41,23 +32,17 @@ export default function UploadForm({ onUploaded }) {
 
     setBusy(true);
     setError("");
-    setProgress(0);
-    setStatus("Uploading files...");
 
     try {
       const result = await uploadModels(files);
 
-      setProgress(100);
-      setStatus("Upload completed successfully");
       setFiles([]);
 
       if (inputRef.current) {
         inputRef.current.value = "";
       }
-
       onUploaded?.(result);
     } catch (err) {
-      setStatus("Upload failed");
       setError(err.message);
     } finally {
       setBusy(false);
@@ -172,10 +157,6 @@ export default function UploadForm({ onUploaded }) {
         {busy ? "Uploading..." : "Start Upload"}
       </button>
 
-      {/* Upload Progress */}
-      <div className="mt-5">
-        <ProgressBar progress={progress} status={status} />
-      </div>
 
       {/* Error Message */}
       {error && (
@@ -185,13 +166,6 @@ export default function UploadForm({ onUploaded }) {
         </div>
       )}
 
-      {/* Success Message */}
-      {!error && progress === 100 && (
-        <div className="mt-4 flex items-center gap-2 rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm font-medium text-emerald-800">
-          <CheckCircle2 size={17} />
-          Models uploaded successfully!
-        </div>
-      )}
 
       {/* Footer */}
       <p className="mt-5 text-center text-xs text-slate-400">
