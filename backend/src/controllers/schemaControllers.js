@@ -1,6 +1,6 @@
 const fs = require('fs').promises;
 const path = require('path');
-const { loadModel } = require('../services/schema/schema-runner');
+const { loadModel, unloadModel } = require('../services/schema/schema-runner');
 const { extractSchemaData } = require('../services/schema/extractor');
 const { buildIR } = require('../services/schema/ir-builder');
 
@@ -69,11 +69,18 @@ const extractModels = async (req, res, next) => {
     const extractedModels = [];
 
     for (const modelFilePath of modelFiles) {
-        const model = loadModel(modelFilePath);
+      let model;
+      try{
+        model = loadModel(modelFilePath);
 
         const schemaData = extractSchemaData(model);
 
         extractedModels.push(schemaData);
+      }finally{
+        if (model) {
+            unloadModel(model, modelFilePath);
+        }
+      }
     }
 
     const ir = buildIR(extractedModels);
