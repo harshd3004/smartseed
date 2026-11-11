@@ -52,7 +52,7 @@ export default function PlanFieldsTable({ fields = [] }) {
           {fields.map((field) => (
             <tr key={field.name} className="align-middle hover:bg-slate-50/70">
               <td className="px-5 py-3.5 font-mono text-[13px] font-medium text-slate-800">{field.name}</td>
-              <td className="px-5 py-3.5"><TypeBadge type={field.type} /></td>
+              <td className="px-5 py-3.5"><TypeBadge type={field.sourceType} /></td>
               <td className="px-5 py-3.5"><GeneratorButton generator={field.generator} /></td>
               <td className="px-5 py-3.5"><SourceLabel source={field.source} /></td>
               <td className="px-5 py-3.5"><StatusLabel status={field.status} generator={field.generator} /></td>

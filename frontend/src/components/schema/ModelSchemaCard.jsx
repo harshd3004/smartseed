@@ -1,11 +1,13 @@
 import { ChevronDown, ChevronUp, Layers3 } from "lucide-react";
 import SchemaFieldsTable from "./SchemaFieldsTable";
+import { useState } from "react";
 
-export default function ModelSchemaCard({ model, expanded = true }) {
+export default function ModelSchemaCard({ model }) {
   const fields = model.fields || [];
+  const [expanded, setExpanded] = useState(false);
 
   return (
-    <section className="overflow-hidden rounded-xl border border-slate-200 bg-white">
+    <section className="overflow-hidden rounded-xl border border-slate-200 bg-white" onClick={() => setExpanded(!expanded)}>
       <div className="flex flex-wrap items-center justify-between gap-4 px-5 py-4">
         <div className="flex min-w-0 items-center gap-3">
           <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-emerald-50 text-[#00684A]">
