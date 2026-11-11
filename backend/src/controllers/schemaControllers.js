@@ -56,18 +56,27 @@ const extractModels = async (req, res, next) => {
 
     const items = await fs.readdir(modelsPath, { withFileTypes: true });
 
-    const modelFilePath = items[0]?.isFile() ? path.join(modelsPath, items[0].name) : null;
+    const modelFiles = items
+        .filter(item => item.isFile() && item.name.endsWith(".js"))
+        .map(item => path.join(modelsPath, item.name));
 
-    if (!modelFilePath) {
-      res.status(404);
-      throw new Error("No model files found in the session folder.");
+    if (modelFiles.length === 0) {
+        res.status(404);
+        throw new Error("No model files found in the session folder.");
     }
 
-    const model = loadModel(modelFilePath);
+    // Extract metadata from every model
+    const extractedModels = [];
 
-    const schemadata = extractSchemaData(model);
+    for (const modelFilePath of modelFiles) {
+        const model = loadModel(modelFilePath);
 
-    const ir = buildIR(schemadata);
+        const schemaData = extractSchemaData(model);
+
+        extractedModels.push(schemaData);
+    }
+
+    const ir = buildIR(extractedModels);
 
     const irFilePath = path.join(sessionFolderPath, 'ir.json');
 

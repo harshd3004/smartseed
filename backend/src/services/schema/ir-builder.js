@@ -1,12 +1,10 @@
-function buildIR(modelMetadata) {
+function buildIR(modelsMetadata) {
     return {
-        models: [
-            {
-                name: modelMetadata.name,
-                collection: modelMetadata.collection,
-                fields: modelMetadata.fields
-            }
-        ]
+        models: modelsMetadata.map(modelMetadata => ({
+            name: modelMetadata.name,
+            collection: modelMetadata.collection,
+            fields: modelMetadata.fields
+        }))
     };
 }
 
