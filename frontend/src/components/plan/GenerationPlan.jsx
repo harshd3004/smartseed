@@ -1,12 +1,27 @@
 import { ArrowRight, CheckCircle2, Database, Sparkles } from "lucide-react";
 import ModelPlanCard from "./ModelPlanCard";
+import { useState, useEffect } from "react";
+import { useSession } from "../../context/SessionContext";
+import { getPlan } from "../../api/planApi";
 
-export default function GenerationPlan({ plan }) {
-  const models = plan?.models || [];
-  const totalFields = models.reduce((sum, model) => {
-    const count = Array.isArray(model.fields) ? model.fields.length : Object.keys(model.fields || {}).length;
-    return sum + count;
-  }, 0);
+export default function GenerationPlan() {
+  const [models, setModels] = useState([])
+  const [totalFields, setTotalFields] = useState(0);
+  const { sessionId } = useSession();
+
+  useEffect(()=> {
+      async function fetchPlan (){
+        if(!sessionId)
+          return;
+        const res = await getPlan(sessionId);
+        setModels(res.plan.models);
+      }
+      fetchPlan()
+  },[]);
+
+  useEffect(() => {
+    setTotalFields(models.reduce((sum, model) => sum + (model.fields?.length || 0), 0));
+  }, [models]);
 
   return (
     <main className="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6 lg:px-8">

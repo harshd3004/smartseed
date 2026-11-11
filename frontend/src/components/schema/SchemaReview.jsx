@@ -1,13 +1,17 @@
-import { ArrowRight, CheckCircle2, Database, FileCode2 } from "lucide-react";
+import { ArrowRight, CheckCircle2, Database, FileCode2, Loader2 } from "lucide-react";
 import ModelSchemaCard from "./ModelSchemaCard";
 import { useState, useEffect } from "react";
 import { useSession } from "../../context/SessionContext";
 import { getExtractedSchema } from "../../api/schemaApi";
+import { generatePlan } from "../../api/planApi";
+import { useNavigate } from "react-router-dom";
 
 export default function SchemaReview() {
   const [models, setModels] = useState([])
   const [totalFields, setTotalFields] = useState(0);
   const { sessionId } = useSession();
+  const navigate = useNavigate();
+  const [isGeneratingPlan, setIsGeneratingPlan] = useState(false);
 
   useEffect(()=> {
     async function fetchIR(){
@@ -16,10 +20,27 @@ export default function SchemaReview() {
       const res = await getExtractedSchema(sessionId);
       console.log("Res:",res)
       setModels(res.ir.models);
-      setTotalFields(models.reduce((sum, model) => sum + (model.fields?.length || 0), 0))
     }
     fetchIR()
   },[]);
+
+  useEffect(() => {
+    setTotalFields(models.reduce((sum, model) => sum + (model.fields?.length || 0), 0));
+  }, [models]);
+
+  const handleGeneratePlan = async () => {
+    if (!sessionId) return;
+    
+    setIsGeneratingPlan(true);
+    
+    const res = await generatePlan(sessionId);
+    setIsGeneratingPlan(false);
+    if (res.success) {
+      navigate(`/plan`);
+    }else {
+      console.error("Plan generation failed:", res.message);
+    }
+  }
 
   return (
     <main className="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
@@ -64,8 +85,8 @@ export default function SchemaReview() {
 
       <div className="mt-8 flex flex-col-reverse gap-3 border-t border-slate-200 pt-6 sm:flex-row sm:items-center sm:justify-between">
         <p className="text-xs text-slate-500">Check the detected fields and constraints before proceeding.</p>
-        <button type="button" className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#13AA52] px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#0E9145] focus:outline-none focus:ring-2 focus:ring-[#13AA52] focus:ring-offset-2">
-          Generate Plan <ArrowRight size={16} />
+        <button onClick={ handleGeneratePlan } disabled={isGeneratingPlan} type="button" className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#13AA52] px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#0E9145] focus:outline-none focus:ring-2 focus:ring-[#13AA52] focus:ring-offset-2">
+          Generate Plan {isGeneratingPlan ? <Loader2 size={16} /> : <ArrowRight size={16} />}
         </button>
       </div>
     </main>
