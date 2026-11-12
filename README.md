@@ -314,8 +314,6 @@ Potential improvements and extensions include:
 | Komal Patil | Frontend / UI Design |
 | Varsha Mane | Frontend |
 
-*Update contributor names and responsibilities as appropriate.*
-
 ---
 
 ## 📄 License
