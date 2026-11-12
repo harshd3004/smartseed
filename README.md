@@ -41,26 +41,3 @@ MongoDB
 The project is being developed incrementally, with each component separated to keep the system modular and maintainable.
 
 ---
-
-# SmartSeed Backend
-
-The backend is responsible for the core processing pipeline of SmartSeed.
-
-Its responsibilities include:
-
-* Loading and analyzing Mongoose models
-* Extracting schema metadata and validation constraints
-* Converting schema information into a standardized Internal Representation (IR)
-* Supporting future semantic analysis of fields
-* Creating data generation plans
-* Generating synthetic data
-* Validating generated data against schema rules
-* Seeding generated data into MongoDB
-
-The backend uses:
-
-* Node.js
-* Express.js
-* JavaScript
-* Mongoose
-* MongoDB
