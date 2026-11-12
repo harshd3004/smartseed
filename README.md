@@ -1,4 +1,4 @@
-# 🌱 SmartSeed
+#  SmartSeed
 
 ### AI-Assisted Synthetic Data Generation for MongoDB
 
